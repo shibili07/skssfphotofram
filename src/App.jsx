@@ -29,7 +29,7 @@ export default function App() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [toasts, setToasts] = useState([]);
 
-  const actionSectionRef = useRef(null);
+  const posterCardRef = useRef(null);
 
   // Show Toast Helper
   const showToast = useCallback((message, type = 'info') => {
@@ -90,11 +90,11 @@ export default function App() {
       });
     } catch {}
 
-    // On mobile devices, smoothly scroll down slightly so action buttons are in view
-    if (window.innerWidth < 960 && actionSectionRef.current) {
+    // On mobile devices, smoothly scroll to preview if desired
+    if (window.innerWidth < 960 && posterCardRef.current) {
       setTimeout(() => {
-        actionSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 250);
+        posterCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
     }
   }, [showToast]);
 
@@ -231,22 +231,24 @@ export default function App() {
       <Header />
 
       <main className="main-layout">
-        {/* Left: Interactive Poster Canvas with controls */}
-        <PosterCanvas
-          userImg={userImg}
-          framePreviewImg={framePreviewImg}
-          panX={panX}
-          panY={panY}
-          setPan={handleSetPan}
-          scale={scale}
-          setScale={setScale}
-          baseScale={baseScale}
-          hasUserPhoto={hasUserPhoto}
-          onReset={handleReset}
-        />
+        {/* Interactive Poster Canvas with controls */}
+        <div ref={posterCardRef} className="poster-card-container">
+          <PosterCanvas
+            userImg={userImg}
+            framePreviewImg={framePreviewImg}
+            panX={panX}
+            panY={panY}
+            setPan={handleSetPan}
+            scale={scale}
+            setScale={setScale}
+            baseScale={baseScale}
+            hasUserPhoto={hasUserPhoto}
+            onReset={handleReset}
+          />
+        </div>
 
-        {/* Right: Actions Card */}
-        <section className="action-card" ref={actionSectionRef}>
+        {/* Actions Card: കാമ്പയിൻ പോസ്റ്റർ ഫ്രെയിം മേക്കർ */}
+        <section className="action-card">
           <div className="action-header">
             <h2 className="action-title">കാമ്പയിൻ പോസ്റ്റർ ഫ്രെയിം മേക്കർ</h2>
             <p className="action-subtitle">
@@ -266,9 +268,10 @@ export default function App() {
               isDownloading={isDownloading}
             />
           )}
-
-          <EventDetails />
         </section>
+
+        {/* Event Details */}
+        <EventDetails />
       </main>
 
       <Footer />

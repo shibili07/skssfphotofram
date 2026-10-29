@@ -217,17 +217,53 @@ body::before {
 .main-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "poster action"
+    "poster event";
   gap: 2rem;
   align-items: start;
 }
 
+.poster-card-container {
+  grid-area: poster;
+  width: 100%;
+}
+
+.action-card {
+  grid-area: action;
+  width: 100%;
+}
+
+.event-info-box {
+  grid-area: event;
+  margin-top: 0;
+  width: 100%;
+}
+
 @media (max-width: 960px) {
   .main-layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     max-width: 520px;
     margin: 0 auto;
     width: 100%;
     gap: 1.25rem;
+  }
+
+  /* In mobile devices, FIRST show "കാമ്പയിൻ പോസ്റ്റർ ഫ്രെയിം മേക്കർ" */
+  .action-card {
+    order: 1;
+  }
+
+  /* Second: Interactive Poster Canvas */
+  .poster-card-container {
+    order: 2;
+  }
+
+  /* Third: Event Details */
+  .event-info-box {
+    order: 3;
+    margin-top: 0;
   }
 }
 

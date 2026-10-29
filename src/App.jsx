@@ -191,7 +191,9 @@ export default function App() {
 *“ഞാനും പങ്കെടുക്കുന്നു“*
 പ്രൊഫൈൽ ക്യാമ്പയിൻ
 
-> SKSSF AMAPOYIL UNIT`;
+> SKSSF AMAPOYIL UNIT
+
+https://skssfishkmajlis-nine.vercel.app/`;
 
     setIsDownloading(true);
     try {
